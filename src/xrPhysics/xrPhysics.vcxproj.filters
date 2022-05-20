@@ -136,6 +136,9 @@
     <Filter Include="physics\damage_receiver">
       <UniqueIdentifier>{633b90c0-0e90-4a1d-b5da-22e81159c94d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="physics\Base\Objects\PhyMove\CPMACharacter">
+      <UniqueIdentifier>{fcbd7c02-cccf-4c19-9e20-7b29b3eaaa21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -318,6 +321,7 @@
     <ClCompile Include="collisiondamagereceiver.cpp">
       <Filter>physics\damage_receiver</Filter>
     </ClCompile>
+    <ClCompile Include="PHCPMACharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -593,6 +597,7 @@
     <ClInclude Include="icollisiondamagereceiver.h">
       <Filter>physics\damage_receiver</Filter>
     </ClInclude>
+    <ClInclude Include="PHCPMACharacter.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\OpenXRay.natvis" />

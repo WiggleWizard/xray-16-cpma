@@ -14,6 +14,7 @@
 #include "ph_valid_ode.h"
 #include "PHAICharacter.h"
 #include "PHActorCharacter.h"
+#include "PHCPMACharacter.h"
 
 CPHCharacter::CPHCharacter(void) : CPHDisablingTranslational()
 {
@@ -202,4 +203,4 @@ void CPHCharacter::fix_body_rotation()
 }
 
 CPHCharacter* create_ai_character() { return xr_new<CPHAICharacter>(); }
-CPHCharacter* create_actor_character(bool single_game) { return xr_new<CPHActorCharacter>(single_game); }
+CPHCharacter* create_actor_character(bool single_game) { return xr_new<CPHCPMACharacter>(single_game); }

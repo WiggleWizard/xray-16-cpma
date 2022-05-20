@@ -447,7 +447,7 @@ CWound* CActorCondition::ConditionHit(SHit* pHDS)
 
 void CActorCondition::PowerHit(float power, bool apply_outfit)
 {
-    m_fPower -= apply_outfit ? HitPowerEffect(power) : power;
+    //m_fPower -= apply_outfit ? HitPowerEffect(power) : power;
     clamp(m_fPower, 0.f, 1.f);
 }
 // weight - "удельный" вес от 0..1
@@ -455,7 +455,7 @@ void CActorCondition::ConditionJump(float weight)
 {
     float power = m_fJumpPower;
     power += m_fJumpWeightPower * weight * (weight > 1.f ? m_fOverweightJumpK : 1.f);
-    m_fPower -= HitPowerEffect(power);
+    //m_fPower -= HitPowerEffect(power);
 }
 
 void CActorCondition::ConditionWalk(float weight, bool accel, bool sprint)
@@ -463,14 +463,14 @@ void CActorCondition::ConditionWalk(float weight, bool accel, bool sprint)
     float power = m_fWalkPower;
     power += m_fWalkWeightPower * weight * (weight > 1.f ? m_fOverweightWalkK : 1.f);
     power *= m_fDeltaTime * (accel ? (sprint ? m_fSprintK : m_fAccelK) : 1.f);
-    m_fPower -= HitPowerEffect(power);
+    //m_fPower -= HitPowerEffect(power);
 }
 
 void CActorCondition::ConditionStand(float weight)
 {
     float power = m_fStandPower;
     power *= m_fDeltaTime;
-    m_fPower -= power;
+    //m_fPower -= power;
 }
 
 bool CActorCondition::IsCantWalk() const
@@ -479,7 +479,7 @@ bool CActorCondition::IsCantWalk() const
         m_bCantWalk = true;
     else if (m_fPower > m_fCantWalkPowerEnd)
         m_bCantWalk = false;
-    return m_bCantWalk;
+    return false;
 }
 
 bool CActorCondition::IsCantWalkWeight()
@@ -500,11 +500,11 @@ bool CActorCondition::IsCantWalkWeight()
 
 bool CActorCondition::IsCantSprint() const
 {
-    if (m_fPower < m_fCantSprintPowerBegin)
-        m_bCantSprint = true;
-    else if (m_fPower > m_fCantSprintPowerEnd)
-        m_bCantSprint = false;
-    return m_bCantSprint;
+    //if (m_fPower < m_fCantSprintPowerBegin)
+    //    m_bCantSprint = true;
+    //else if (m_fPower > m_fCantSprintPowerEnd)
+    //    m_bCantSprint = false;
+    return false;
 }
 
 bool CActorCondition::IsLimping() const

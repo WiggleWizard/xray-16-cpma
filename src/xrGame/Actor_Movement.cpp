@@ -19,11 +19,11 @@
 #ifdef DEBUG
 #include "PHDebug.h"
 #endif
-static const float s_fLandingTime1 = 0.1f; // через сколько снять флаг Landing1 (т.е. включить следующую анимацию)
-static const float s_fLandingTime2 = 0.3f; // через сколько снять флаг Landing2 (т.е. включить следующую анимацию)
-static const float s_fJumpTime = 0.3f;
-static const float s_fJumpGroundTime = 0.1f; // для снятия флажка Jump если на земле
-const float s_fFallTime = 0.2f;
+static const float s_fLandingTime1 = 0.0f; // через сколько снять флаг Landing1 (т.е. включить следующую анимацию)
+static const float s_fLandingTime2 = 0.0f; // через сколько снять флаг Landing2 (т.е. включить следующую анимацию)
+static const float s_fJumpTime = 0.0f;
+static const float s_fJumpGroundTime = 0.0f; // для снятия флажка Jump если на земле
+const float s_fFallTime = 0.0f;
 
 IC static void generate_orthonormal_basis1(const Fvector& dir, Fvector& updir, Fvector& right)
 {
@@ -216,17 +216,25 @@ void CActor::g_cl_CheckControls(u32 mstate_wf, Fvector& vControlAccel, float& Ju
         // jump
         m_fJumpTime -= dt;
 
-        if (CanJump() && (mstate_wf & mcJump))
-        {
-            mstate_real |= mcJump;
-            m_bJumpKeyPressed = TRUE;
-            Jump = m_fJumpSpeed;
-            m_fJumpTime = s_fJumpTime;
+        
 
-            //уменьшить силу игрока из-за выполненого прыжка
-            if (!GodMode())
-                conditions().ConditionJump(inventory().TotalWeight() / MaxCarryWeight());
+        if (mstate_wf & mcJump)
+        {
+            Msg("Here 1");
+            if (CanJump())
+            {
+                Msg("Here 2");
+                mstate_real |= mcJump;
+                m_bJumpKeyPressed = TRUE;
+                Jump = m_fJumpSpeed;
+                m_fJumpTime = s_fJumpTime;
+
+                //уменьшить силу игрока из-за выполненого прыжка
+                if (!GodMode())
+                    conditions().ConditionJump(inventory().TotalWeight() / MaxCarryWeight());
+            }
         }
+        
 
         // mask input into "real" state
         u32 move = mcAnyMove | mcAccel;
@@ -356,7 +364,7 @@ void CActor::g_cl_CheckControls(u32 mstate_wf, Fvector& vControlAccel, float& Ju
     }
     // transform local dir to world dir
     Fmatrix mOrient;
-    mOrient.rotateY(-r_model_yaw);
+    mOrient.rotateY(-cam_Active()->GetWorldYaw());
     mOrient.transform_dir(vControlAccel);
 }
 
@@ -582,16 +590,14 @@ bool CActor::CanRun()
 
 bool CActor::CanSprint()
 {
-    bool can_Sprint = CanAccelerate() && !conditions().IsCantSprint() && Game().PlayerCanSprint(this) && CanRun() &&
-        !(mstate_real & mcLStrafe || mstate_real & mcRStrafe) && InventoryAllowSprint();
+    bool can_Sprint = CanAccelerate() && !conditions().IsCantSprint() && Game().PlayerCanSprint(this) && CanRun() && InventoryAllowSprint();
 
     return can_Sprint && (m_block_sprint_counter <= 0);
 }
 
 bool CActor::CanJump()
 {
-    bool can_Jump = !character_physics_support()->movement()->PHCapture() && ((mstate_real & mcJump) == 0) &&
-        (m_fJumpTime <= 0.f) && !m_bJumpKeyPressed && !IsZoomAimingMode();
+    bool can_Jump = !character_physics_support()->movement()->PHCapture();
 
     return can_Jump;
 }

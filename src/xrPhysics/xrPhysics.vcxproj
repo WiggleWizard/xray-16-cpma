@@ -56,6 +56,7 @@
     <ClCompile Include="PHCharacter.cpp" />
     <ClCompile Include="PHCollideValidator.cpp" />
     <ClCompile Include="PHContactBodyEffector.cpp" />
+    <ClCompile Include="PHCPMACharacter.cpp" />
     <ClCompile Include="PHDisabling.cpp" />
     <ClCompile Include="PHDynamicData.cpp" />
     <ClCompile Include="PHElement.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="PHCharacter.h" />
     <ClInclude Include="PHCollideValidator.h" />
     <ClInclude Include="PHContactBodyEffector.h" />
+    <ClInclude Include="PHCPMACharacter.h" />
     <ClInclude Include="PHDefs.h" />
     <ClInclude Include="PHDisabling.h" />
     <ClInclude Include="PHDynamicData.h" />
@@ -214,6 +216,9 @@
     </ProjectReference>
     <ProjectReference Include="..\xrEngine\xrEngine.vcxproj">
       <Project>{2578c6d8-660d-48ae-9322-7422f8664f06}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrUICore\xrUICore.vcxproj">
+      <Project>{37b3642c-b706-4c93-bc54-badadc8fc9b1}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
