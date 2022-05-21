@@ -16,6 +16,9 @@
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -32,16 +35,23 @@
   <PropertyGroup>
     <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
     </ClCompile>
     <Link>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(xrLibDir)xr_3da.lib</ImportLibrary>
+      <GenerateDebugInformation Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">true</GenerateDebugInformation>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>as-invoker-manifest-part.xml %(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
+    <ClCompile>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">EditAndContinue</DebugInformationFormat>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="entry_point.cpp" />

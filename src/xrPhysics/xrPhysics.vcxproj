@@ -14,6 +14,9 @@
   <PropertyGroup Label="Configuration" Condition="$(Configuration.Contains('Master Gold'))">
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -22,12 +25,19 @@
     <Import Project="..\xray.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRPHYSICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(xrExternals)ode/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FloatingPointModel Condition="'$(Platform)'=='x64'">Precise</FloatingPointModel>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">EditAndContinue</DebugInformationFormat>
     </ClCompile>
+    <Link>
+      <GenerateDebugInformation Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">true</GenerateDebugInformation>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\xrServerEntities\PHNetState.cpp">
